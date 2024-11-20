@@ -1,0 +1,94 @@
+# depslib dependency file v1.0
+1731868674 source:c:\users\doctor\documents\c c++ projects\code blocks stuff\expense tracker\sqlite3.c
+	<vxWorks.h>
+	<pthread.h>
+	"mingw.h"
+	"_mingw.h"
+	<stdarg.h>
+	"sqlite_cfg.h"
+	<stdint.h>
+	<inttypes.h>
+	<intrin.h>
+	<cmnintrin.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<stddef.h>
+	<TargetConditionals.h>
+	<ctype.h>
+	<time.h>
+	<sys/sysctl.h>
+	<malloc/malloc.h>
+	<libkern/OSAtomic.h>
+	<malloc.h>
+	<pthread.h>
+	"windows.h"
+	<sys/cygwin.h>
+	<errno.h>
+	<process.h>
+	<math.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<unistd.h>
+	<sys/time.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<sys/ioctl.h>
+	<unistd.h>
+	<sys/time.h>
+	<errno.h>
+	<sys/mman.h>
+	<sys/file.h>
+	<sys/param.h>
+	<semaphore.h>
+	<limits.h>
+	<sys/mount.h>
+	<utime.h>
+	<sys/dcmd_blk.h>
+	<sys/statvfs.h>
+	<dlfcn.h>
+	<Windows.h>
+	"sqlite_tcl.h"
+	"tcl.h"
+	"sqlite3rtree.h"
+	<ctype.h>
+	<unicode/utypes.h>
+	<unicode/uregex.h>
+	<unicode/ustring.h>
+	<unicode/ucol.h>
+	<unicode/ubrk.h>
+	<unicode/utf16.h>
+	<math.h>
+
+1732114987 source:c:\users\doctor\documents\c c++ projects\code blocks stuff\expense tracker\transaction.cpp
+	"Transaction.hpp"
+	<iostream>
+	<string>
+
+1732113676 c:\users\doctor\documents\c c++ projects\code blocks stuff\expense tracker\transaction.hpp
+	<iostream>
+	<string>
+
+1732129057 source:c:\users\doctor\documents\c c++ projects\code blocks stuff\expense tracker\transaction_services.cpp
+	"transaction_services.hpp"
+	<iostream>
+	"sqlite3.h"
+
+1732133652 c:\users\doctor\documents\c c++ projects\code blocks stuff\expense tracker\transaction_services.hpp
+	"Transaction.hpp"
+	"sqlite3.h"
+	<vector>
+
+1713206768 c:\users\doctor\documents\c c++ projects\code blocks stuff\expense tracker\sqlite3.h
+	<stdarg.h>
+
+1732128435 source:c:\users\doctor\documents\c c++ projects\code blocks stuff\expense tracker\main.cpp
+	<iostream>
+	<string>
+	"Transaction.hpp"
+	"sqlite3.h"
+	"transaction_services.hpp"
+	<vector>
+
