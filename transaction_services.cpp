@@ -50,7 +50,67 @@ vector<Transaction> Transaction_Services::traverse_result_set(sqlite3_stmt* stmt
         }
     return t_list;
 }
+vector<Transaction> Transaction_Services::getTransactions(int t_id, string date, string category, double amount, bool is_expense){
+    sqlite3_stmt* stmt;
+    vector<Transaction> t_list;
+    bool parameter_added = false;
+    string sql = "SELECT * FROM tblTransactions";
 
+    if (t_id != NULL){
+        if (parameter_added == false){
+            sql = sql + "WHERE transaction_id = " + to_string(t_id);
+            parameter_added = true;
+            }
+            else{
+                sql = sql + " AND transaction_id = " + to_string(t_id);
+            }
+    }
+    if(date != to_string(NULL)){
+        if (parameter_added == false){
+            sql = sql + " WHERE date = \"" + date + "\"";
+            parameter_added = true;
+        }
+        else{
+            sql = sql + " AND date = \"" + date + "\"";
+        }
+    }
+    if(category != to_string(NULL)){
+        if (parameter_added == false){
+            sql = sql + " WHERE category = \"" + category + "\"";
+            parameter_added = true;
+        }
+        else{
+            sql = sql + " AND category = \"" + category + "\"";
+        }
+    }
+    if(amount != NULL){
+        if(parameter_added == false){
+            sql = sql + " WHERE amount = " + to_string(amount);
+            parameter_added = true;
+        }
+        else{
+            sql = sql + " AND amount = " + to_string(amount);
+        }
+    }
+    if(is_expense != NULL){
+        if(parameter_added == false){
+            sql = sql + " WHERE Transaction_Type = " + to_string(is_expense);
+            parameter_added = true;
+        }
+        else{
+            sql = sql + " AND Transaction_Type = " + to_string(is_expense);
+        }
+    }
+
+    int exit_code = sqlite3_prepare_v2(this->db, sql.c_str(), -1, &stmt, nullptr);
+    if(exit_code != SQLITE_OK){
+        cerr << "Failed to prepare statement " << sqlite3_errmsg(this->db) << endl;
+    }else{
+        t_list = this->traverse_result_set(stmt);
+    }
+
+    return t_list;
+}
 vector<Transaction> Transaction_Services::getAllTransactions(){
     vector<Transaction> tr_arr;
     tr_arr.push_back(Transaction());

@@ -16,6 +16,6 @@ public:
     void add_transaction();
     vector<Transaction> getAllTransactions();
     vector<Transaction> getTransaction(int transaction_id);
-    vector<Transaction> getTransactions(int t_id = NULL, string date = NULL, string category = NULL, double amount = NULL, bool is_expense = NULL);
+    vector<Transaction> getTransactions(int t_id, string date, string category, double amount, bool is_expense);
     ~Transaction_Services();
 };
