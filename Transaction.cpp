@@ -3,9 +3,19 @@
 #include <string>
 using namespace std;
 
-Transaction::Transaction(int t_id, std::string n_date, std::string n_category, double n_amount, bool n_is_expense)
+//this is the preferred constructor because well I am lazy and qt5 uses strings for the ui element data iirc
+Transaction::Transaction(string t_id, std::string n_date, std::string n_category, double n_amount, bool n_is_expense)
 {
     this ->transaction_id = t_id;
+    this ->date = n_date;
+    this ->category = n_category;
+    this ->amount = n_amount;
+    this ->is_expense = n_is_expense;
+
+}
+Transaction::Transaction(int64_t t_id, std::string n_date, std::string n_category, double n_amount, bool n_is_expense)
+{
+    this ->transaction_id = to_string(t_id);
     this ->date = n_date;
     this ->category = n_category;
     this ->amount = n_amount;
@@ -38,7 +48,7 @@ bool Transaction::getTransactionType(){
 }
 string Transaction::toString(){
     string str_rep("Transaction ID: ");
-    str_rep.append(to_string(this->transaction_id) + "\n");
+    str_rep.append(this->transaction_id + "\n");
 
     str_rep.append("Category: " + this->category +"\n");
     str_rep.append("Date: " + this->date + "\n");

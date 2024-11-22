@@ -20,7 +20,8 @@ public:
     void add_transaction();
     vector<Transaction> getAllTransactions();
     vector<Transaction> getAllExpenses();
-    vector<Transaction> getTransactions(int t_id = 0, string date = to_string(0), string category = to_string(0), double amount = 0);
+    vector<Transaction> getTransactionsByMonthOrYear(string month_or_year);
+    vector<Transaction> getTransactions(int64_t t_id = 0, string date = to_string(0), string category = to_string(0), double amount = 0);
     vector<Transaction> getExpenses();
     ~Transaction_Services();
 };
