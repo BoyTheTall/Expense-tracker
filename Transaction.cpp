@@ -1,6 +1,7 @@
 #include "Transaction.hpp"
 #include <iostream>
 #include <string>
+using namespace std;
 
 Transaction::Transaction(int t_id, std::string n_date, std::string n_category, double n_amount, bool n_is_expense)
 {
@@ -35,7 +36,21 @@ std::string Transaction::getDate(){
 bool Transaction::getTransactionType(){
     return this -> is_expense;
 }
+string Transaction::toString(){
+    string str_rep("Transaction ID: ");
+    str_rep.append(to_string(this->transaction_id) + "\n");
 
+    str_rep.append("Category: " + this->category +"\n");
+    str_rep.append("Date: " + this->date + "\n");
+    str_rep.append("Amount: " + to_string(this->amount) + "\n");
+    if (this->is_expense == true){
+        str_rep.append("Type of transaction: Expense");
+    }
+    else{
+        str_rep.append("Type of transaction: Income");
+    }
+    return str_rep;
+}
  void Transaction::setAmount(double n_amount){
     this -> amount = n_amount;
  }

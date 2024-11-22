@@ -22,10 +22,11 @@ void Transaction_Services::connect() {
 
     }
 
-vector<Transaction> Transaction_Services::getTransaction(int transaction_id){
+//this function gets all transactions of the specified type. it will be hidden from view and will be used by public facing functions. I could not really use the other functions with it because well i can't set a default value that makes sense
+vector<Transaction> Transaction_Services::getTransactionByType(bool transaction_type){
     sqlite3_stmt* stmt;
     vector<Transaction> t_list;
-    string sql = "SELECT * FROM tblTransactions WHERE transaction_id = " + to_string(transaction_id);
+    string sql = "SELECT * FROM tblTransactions WHERE Transaction_Type = " + to_string(transaction_type);
     int exit_code = sqlite3_prepare_v2(this->db, sql.c_str(), -1, &stmt, nullptr);
     if(exit_code != SQLITE_OK){
         cerr << "Failed to prepare statement " << sqlite3_errmsg(this->db) << endl;
@@ -36,6 +37,9 @@ vector<Transaction> Transaction_Services::getTransaction(int transaction_id){
     return t_list;
     }
 
+vector<Transaction> Transaction_Services::getAllExpenses(){
+    return this->getTransactionByType(true);
+}
     //only call this function if the sql statement actually executed
 vector<Transaction> Transaction_Services::traverse_result_set(sqlite3_stmt* stmt){
     vector<Transaction> t_list;
@@ -50,22 +54,25 @@ vector<Transaction> Transaction_Services::traverse_result_set(sqlite3_stmt* stmt
         }
     return t_list;
 }
-vector<Transaction> Transaction_Services::getTransactions(int t_id, string date, string category, double amount, bool is_expense){
+
+//this can be made used to search for any combinations of the parameters listed. beats having to write the multiple variations.
+vector<Transaction> Transaction_Services::getTransactions(int t_id, string date, string category, double amount){
     sqlite3_stmt* stmt;
     vector<Transaction> t_list;
     bool parameter_added = false;
     string sql = "SELECT * FROM tblTransactions";
 
-    if (t_id != NULL){
+    if (t_id != 0){
         if (parameter_added == false){
-            sql = sql + "WHERE transaction_id = " + to_string(t_id);
+            sql = sql + " WHERE transaction_id = " + to_string(t_id);
             parameter_added = true;
             }
             else{
                 sql = sql + " AND transaction_id = " + to_string(t_id);
             }
     }
-    if(date != to_string(NULL)){
+
+    if(date != to_string(0)){
         if (parameter_added == false){
             sql = sql + " WHERE date = \"" + date + "\"";
             parameter_added = true;
@@ -74,7 +81,8 @@ vector<Transaction> Transaction_Services::getTransactions(int t_id, string date,
             sql = sql + " AND date = \"" + date + "\"";
         }
     }
-    if(category != to_string(NULL)){
+
+    if(category != to_string(0)){
         if (parameter_added == false){
             sql = sql + " WHERE category = \"" + category + "\"";
             parameter_added = true;
@@ -83,22 +91,14 @@ vector<Transaction> Transaction_Services::getTransactions(int t_id, string date,
             sql = sql + " AND category = \"" + category + "\"";
         }
     }
-    if(amount != NULL){
+
+    if(amount != 0){
         if(parameter_added == false){
             sql = sql + " WHERE amount = " + to_string(amount);
             parameter_added = true;
         }
         else{
             sql = sql + " AND amount = " + to_string(amount);
-        }
-    }
-    if(is_expense != NULL){
-        if(parameter_added == false){
-            sql = sql + " WHERE Transaction_Type = " + to_string(is_expense);
-            parameter_added = true;
-        }
-        else{
-            sql = sql + " AND Transaction_Type = " + to_string(is_expense);
         }
     }
 
@@ -108,16 +108,16 @@ vector<Transaction> Transaction_Services::getTransactions(int t_id, string date,
     }else{
         t_list = this->traverse_result_set(stmt);
     }
-
+    sqlite3_finalize(stmt);
     return t_list;
 }
-vector<Transaction> Transaction_Services::getAllTransactions(){
-    vector<Transaction> tr_arr;
-    tr_arr.push_back(Transaction());
-    tr_arr.push_back(Transaction());
 
-    return tr_arr;
+//this function is there just for the meme of it, i likely wont really need to get the whole database's worth of transactions
+vector<Transaction> Transaction_Services::getAllTransactions(){
+    return this->getTransactions(this->num_default_value, this->str_default_value, this->str_default_value, this->num_default_value);
 }
+
+//we need a function to get a month's transactions, a month's expenses and a month's income but a month's transactions should be fine then. we'll manipulate a string then send it to the getTransaction function since it is already there
 Transaction_Services::~Transaction_Services(){
     if(this->is_connected == true)
         sqlite3_close(this->db);

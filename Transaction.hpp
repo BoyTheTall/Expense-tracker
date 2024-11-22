@@ -18,6 +18,7 @@ class Transaction{
         std::string getCategory();
         double getAmount();
         bool getTransactionType();
+        std::string toString();
 
 
         void setDate(std::string n_date);

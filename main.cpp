@@ -9,16 +9,11 @@ using namespace std;
 
 //practice the database connections thing later
 int main(){
-    Transaction t;
-    vector<Transaction> t_lit;
     Transaction_Services ts = Transaction_Services();
-    int t_id = NULL;
-    string date = NULL;
-    double amount = NULL;
-    bool is_expense = NULL;
-    string category = "groceries";
-    t_lit = ts.getTransactions(t_id, date, category, amount, is_expense);
-    cout << t_lit[0].getAmount() << endl;
-    cout << NULL;
+    int t_id = 5648554;
+    vector<Transaction> t_list =  ts.getAllExpenses();
+    for(int i = 0; i < t_list.size(); i++){
+        cout << t_list[i].toString() << endl << endl;
+    }
     return 0;
 }
